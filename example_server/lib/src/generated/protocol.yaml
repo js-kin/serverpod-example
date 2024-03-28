@@ -1,2 +1,11 @@
 example:
-  - hello:
+  - createExample:
+  - deleteExample:
+  - updateExample:
+  - getExamples:
+test:
+  - createTest:
+  - deleteTest:
+  - updateTest:
+  - getTests:
+  - getTest:

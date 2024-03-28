@@ -10,26 +10,35 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
-abstract class Example extends _i1.SerializableEntity {
-  Example._({
+abstract class Test extends _i1.SerializableEntity {
+  Test._({
     this.id,
-    required this.data,
+    required this.data1,
+    required this.data2,
+    required this.data3,
     required this.date,
   });
 
-  factory Example({
+  factory Test({
     int? id,
-    required String data,
+    required String data1,
+    required String data2,
+    required String data3,
     required DateTime date,
-  }) = _ExampleImpl;
+  }) = _TestImpl;
 
-  factory Example.fromJson(
+  factory Test.fromJson(
     Map<String, dynamic> jsonSerialization,
     _i1.SerializationManager serializationManager,
   ) {
-    return Example(
+    return Test(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      data: serializationManager.deserialize<String>(jsonSerialization['data']),
+      data1:
+          serializationManager.deserialize<String>(jsonSerialization['data1']),
+      data2:
+          serializationManager.deserialize<String>(jsonSerialization['data2']),
+      data3:
+          serializationManager.deserialize<String>(jsonSerialization['data3']),
       date:
           serializationManager.deserialize<DateTime>(jsonSerialization['date']),
     );
@@ -40,20 +49,28 @@ abstract class Example extends _i1.SerializableEntity {
   /// the id will be null.
   int? id;
 
-  String data;
+  String data1;
+
+  String data2;
+
+  String data3;
 
   DateTime date;
 
-  Example copyWith({
+  Test copyWith({
     int? id,
-    String? data,
+    String? data1,
+    String? data2,
+    String? data3,
     DateTime? date,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'data': data,
+      'data1': data1,
+      'data2': data2,
+      'data3': data3,
       'date': date.toJson(),
     };
   }
@@ -61,26 +78,34 @@ abstract class Example extends _i1.SerializableEntity {
 
 class _Undefined {}
 
-class _ExampleImpl extends Example {
-  _ExampleImpl({
+class _TestImpl extends Test {
+  _TestImpl({
     int? id,
-    required String data,
+    required String data1,
+    required String data2,
+    required String data3,
     required DateTime date,
   }) : super._(
           id: id,
-          data: data,
+          data1: data1,
+          data2: data2,
+          data3: data3,
           date: date,
         );
 
   @override
-  Example copyWith({
+  Test copyWith({
     Object? id = _Undefined,
-    String? data,
+    String? data1,
+    String? data2,
+    String? data3,
     DateTime? date,
   }) {
-    return Example(
+    return Test(
       id: id is int? ? id : this.id,
-      data: data ?? this.data,
+      data1: data1 ?? this.data1,
+      data2: data2 ?? this.data2,
+      data3: data3 ?? this.data3,
       date: date ?? this.date,
     );
   }

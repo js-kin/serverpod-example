@@ -11,52 +11,69 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod_serialization/serverpod_serialization.dart';
 
-abstract class Example extends _i1.TableRow {
-  Example._({
+abstract class Test extends _i1.TableRow {
+  Test._({
     int? id,
-    required this.data,
+    required this.data1,
+    required this.data2,
+    required this.data3,
     required this.date,
   }) : super(id);
 
-  factory Example({
+  factory Test({
     int? id,
-    required String data,
+    required String data1,
+    required String data2,
+    required String data3,
     required DateTime date,
-  }) = _ExampleImpl;
+  }) = _TestImpl;
 
-  factory Example.fromJson(
+  factory Test.fromJson(
     Map<String, dynamic> jsonSerialization,
     _i1.SerializationManager serializationManager,
   ) {
-    return Example(
+    return Test(
       id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      data: serializationManager.deserialize<String>(jsonSerialization['data']),
+      data1:
+          serializationManager.deserialize<String>(jsonSerialization['data1']),
+      data2:
+          serializationManager.deserialize<String>(jsonSerialization['data2']),
+      data3:
+          serializationManager.deserialize<String>(jsonSerialization['data3']),
       date:
           serializationManager.deserialize<DateTime>(jsonSerialization['date']),
     );
   }
 
-  static final t = ExampleTable();
+  static final t = TestTable();
 
-  static const db = ExampleRepository._();
+  static const db = TestRepository._();
 
-  String data;
+  String data1;
+
+  String data2;
+
+  String data3;
 
   DateTime date;
 
   @override
   _i1.Table get table => t;
 
-  Example copyWith({
+  Test copyWith({
     int? id,
-    String? data,
+    String? data1,
+    String? data2,
+    String? data3,
     DateTime? date,
   });
   @override
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'data': data,
+      'data1': data1,
+      'data2': data2,
+      'data3': data3,
       'date': date.toJson(),
     };
   }
@@ -66,7 +83,9 @@ abstract class Example extends _i1.TableRow {
   Map<String, dynamic> toJsonForDatabase() {
     return {
       'id': id,
-      'data': data,
+      'data1': data1,
+      'data2': data2,
+      'data3': data3,
       'date': date,
     };
   }
@@ -75,7 +94,9 @@ abstract class Example extends _i1.TableRow {
   Map<String, dynamic> allToJson() {
     return {
       if (id != null) 'id': id,
-      'data': data,
+      'data1': data1,
+      'data2': data2,
+      'data3': data3,
       'date': date.toJson(),
     };
   }
@@ -90,8 +111,14 @@ abstract class Example extends _i1.TableRow {
       case 'id':
         id = value;
         return;
-      case 'data':
-        data = value;
+      case 'data1':
+        data1 = value;
+        return;
+      case 'data2':
+        data2 = value;
+        return;
+      case 'data3':
+        data3 = value;
         return;
       case 'date':
         date = value;
@@ -102,9 +129,9 @@ abstract class Example extends _i1.TableRow {
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<Example>> find(
+  static Future<List<Test>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExampleTable>? where,
+    _i1.WhereExpressionBuilder<TestTable>? where,
     int? limit,
     int? offset,
     _i1.Column? orderBy,
@@ -113,8 +140,8 @@ abstract class Example extends _i1.TableRow {
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.find<Example>(
-      where: where != null ? where(Example.t) : null,
+    return session.db.find<Test>(
+      where: where != null ? where(Test.t) : null,
       limit: limit,
       offset: offset,
       orderBy: orderBy,
@@ -126,17 +153,17 @@ abstract class Example extends _i1.TableRow {
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<Example?> findSingleRow(
+  static Future<Test?> findSingleRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExampleTable>? where,
+    _i1.WhereExpressionBuilder<TestTable>? where,
     int? offset,
     _i1.Column? orderBy,
     bool orderDescending = false,
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.findSingleRow<Example>(
-      where: where != null ? where(Example.t) : null,
+    return session.db.findSingleRow<Test>(
+      where: where != null ? where(Test.t) : null,
       offset: offset,
       orderBy: orderBy,
       orderDescending: orderDescending,
@@ -146,21 +173,21 @@ abstract class Example extends _i1.TableRow {
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<Example?> findById(
+  static Future<Test?> findById(
     _i1.Session session,
     int id,
   ) async {
-    return session.db.findById<Example>(id);
+    return session.db.findById<Test>(id);
   }
 
   @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
   static Future<int> delete(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<ExampleTable> where,
+    required _i1.WhereExpressionBuilder<TestTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.delete<Example>(
-      where: where(Example.t),
+    return session.db.delete<Test>(
+      where: where(Test.t),
       transaction: transaction,
     );
   }
@@ -168,7 +195,7 @@ abstract class Example extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
   static Future<bool> deleteRow(
     _i1.Session session,
-    Example row, {
+    Test row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.deleteRow(
@@ -180,7 +207,7 @@ abstract class Example extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
   static Future<bool> update(
     _i1.Session session,
-    Example row, {
+    Test row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.update(
@@ -193,7 +220,7 @@ abstract class Example extends _i1.TableRow {
       'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
   static Future<void> insert(
     _i1.Session session,
-    Example row, {
+    Test row, {
     _i1.Transaction? transaction,
   }) async {
     return session.db.insert(
@@ -205,39 +232,39 @@ abstract class Example extends _i1.TableRow {
   @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
   static Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExampleTable>? where,
+    _i1.WhereExpressionBuilder<TestTable>? where,
     int? limit,
     bool useCache = true,
     _i1.Transaction? transaction,
   }) async {
-    return session.db.count<Example>(
-      where: where != null ? where(Example.t) : null,
+    return session.db.count<Test>(
+      where: where != null ? where(Test.t) : null,
       limit: limit,
       useCache: useCache,
       transaction: transaction,
     );
   }
 
-  static ExampleInclude include() {
-    return ExampleInclude._();
+  static TestInclude include() {
+    return TestInclude._();
   }
 
-  static ExampleIncludeList includeList({
-    _i1.WhereExpressionBuilder<ExampleTable>? where,
+  static TestIncludeList includeList({
+    _i1.WhereExpressionBuilder<TestTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<ExampleTable>? orderBy,
+    _i1.OrderByBuilder<TestTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<ExampleTable>? orderByList,
-    ExampleInclude? include,
+    _i1.OrderByListBuilder<TestTable>? orderByList,
+    TestInclude? include,
   }) {
-    return ExampleIncludeList._(
+    return TestIncludeList._(
       where: where,
       limit: limit,
       offset: offset,
-      orderBy: orderBy?.call(Example.t),
+      orderBy: orderBy?.call(Test.t),
       orderDescending: orderDescending,
-      orderByList: orderByList?.call(Example.t),
+      orderByList: orderByList?.call(Test.t),
       include: include,
     );
   }
@@ -245,35 +272,51 @@ abstract class Example extends _i1.TableRow {
 
 class _Undefined {}
 
-class _ExampleImpl extends Example {
-  _ExampleImpl({
+class _TestImpl extends Test {
+  _TestImpl({
     int? id,
-    required String data,
+    required String data1,
+    required String data2,
+    required String data3,
     required DateTime date,
   }) : super._(
           id: id,
-          data: data,
+          data1: data1,
+          data2: data2,
+          data3: data3,
           date: date,
         );
 
   @override
-  Example copyWith({
+  Test copyWith({
     Object? id = _Undefined,
-    String? data,
+    String? data1,
+    String? data2,
+    String? data3,
     DateTime? date,
   }) {
-    return Example(
+    return Test(
       id: id is int? ? id : this.id,
-      data: data ?? this.data,
+      data1: data1 ?? this.data1,
+      data2: data2 ?? this.data2,
+      data3: data3 ?? this.data3,
       date: date ?? this.date,
     );
   }
 }
 
-class ExampleTable extends _i1.Table {
-  ExampleTable({super.tableRelation}) : super(tableName: 'example') {
-    data = _i1.ColumnString(
-      'data',
+class TestTable extends _i1.Table {
+  TestTable({super.tableRelation}) : super(tableName: 'test') {
+    data1 = _i1.ColumnString(
+      'data1',
+      this,
+    );
+    data2 = _i1.ColumnString(
+      'data2',
+      this,
+    );
+    data3 = _i1.ColumnString(
+      'data3',
       this,
     );
     date = _i1.ColumnDateTime(
@@ -282,34 +325,40 @@ class ExampleTable extends _i1.Table {
     );
   }
 
-  late final _i1.ColumnString data;
+  late final _i1.ColumnString data1;
+
+  late final _i1.ColumnString data2;
+
+  late final _i1.ColumnString data3;
 
   late final _i1.ColumnDateTime date;
 
   @override
   List<_i1.Column> get columns => [
         id,
-        data,
+        data1,
+        data2,
+        data3,
         date,
       ];
 }
 
-@Deprecated('Use ExampleTable.t instead.')
-ExampleTable tExample = ExampleTable();
+@Deprecated('Use TestTable.t instead.')
+TestTable tTest = TestTable();
 
-class ExampleInclude extends _i1.IncludeObject {
-  ExampleInclude._();
+class TestInclude extends _i1.IncludeObject {
+  TestInclude._();
 
   @override
   Map<String, _i1.Include?> get includes => {};
 
   @override
-  _i1.Table get table => Example.t;
+  _i1.Table get table => Test.t;
 }
 
-class ExampleIncludeList extends _i1.IncludeList {
-  ExampleIncludeList._({
-    _i1.WhereExpressionBuilder<ExampleTable>? where,
+class TestIncludeList extends _i1.IncludeList {
+  TestIncludeList._({
+    _i1.WhereExpressionBuilder<TestTable>? where,
     super.limit,
     super.offset,
     super.orderBy,
@@ -317,33 +366,33 @@ class ExampleIncludeList extends _i1.IncludeList {
     super.orderByList,
     super.include,
   }) {
-    super.where = where?.call(Example.t);
+    super.where = where?.call(Test.t);
   }
 
   @override
   Map<String, _i1.Include?> get includes => include?.includes ?? {};
 
   @override
-  _i1.Table get table => Example.t;
+  _i1.Table get table => Test.t;
 }
 
-class ExampleRepository {
-  const ExampleRepository._();
+class TestRepository {
+  const TestRepository._();
 
-  Future<List<Example>> find(
+  Future<List<Test>> find(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExampleTable>? where,
+    _i1.WhereExpressionBuilder<TestTable>? where,
     int? limit,
     int? offset,
-    _i1.OrderByBuilder<ExampleTable>? orderBy,
+    _i1.OrderByBuilder<TestTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<ExampleTable>? orderByList,
+    _i1.OrderByListBuilder<TestTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.find<Example>(
-      where: where?.call(Example.t),
-      orderBy: orderBy?.call(Example.t),
-      orderByList: orderByList?.call(Example.t),
+    return session.dbNext.find<Test>(
+      where: where?.call(Test.t),
+      orderBy: orderBy?.call(Test.t),
+      orderByList: orderByList?.call(Test.t),
       orderDescending: orderDescending,
       limit: limit,
       offset: offset,
@@ -351,90 +400,90 @@ class ExampleRepository {
     );
   }
 
-  Future<Example?> findFirstRow(
+  Future<Test?> findFirstRow(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExampleTable>? where,
+    _i1.WhereExpressionBuilder<TestTable>? where,
     int? offset,
-    _i1.OrderByBuilder<ExampleTable>? orderBy,
+    _i1.OrderByBuilder<TestTable>? orderBy,
     bool orderDescending = false,
-    _i1.OrderByListBuilder<ExampleTable>? orderByList,
+    _i1.OrderByListBuilder<TestTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findFirstRow<Example>(
-      where: where?.call(Example.t),
-      orderBy: orderBy?.call(Example.t),
-      orderByList: orderByList?.call(Example.t),
+    return session.dbNext.findFirstRow<Test>(
+      where: where?.call(Test.t),
+      orderBy: orderBy?.call(Test.t),
+      orderByList: orderByList?.call(Test.t),
       orderDescending: orderDescending,
       offset: offset,
       transaction: transaction,
     );
   }
 
-  Future<Example?> findById(
+  Future<Test?> findById(
     _i1.Session session,
     int id, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findById<Example>(
+    return session.dbNext.findById<Test>(
       id,
       transaction: transaction,
     );
   }
 
-  Future<List<Example>> insert(
+  Future<List<Test>> insert(
     _i1.Session session,
-    List<Example> rows, {
+    List<Test> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<Example>(
+    return session.dbNext.insert<Test>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<Example> insertRow(
+  Future<Test> insertRow(
     _i1.Session session,
-    Example row, {
+    Test row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<Example>(
+    return session.dbNext.insertRow<Test>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<Example>> update(
+  Future<List<Test>> update(
     _i1.Session session,
-    List<Example> rows, {
-    _i1.ColumnSelections<ExampleTable>? columns,
+    List<Test> rows, {
+    _i1.ColumnSelections<TestTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<Example>(
+    return session.dbNext.update<Test>(
       rows,
-      columns: columns?.call(Example.t),
+      columns: columns?.call(Test.t),
       transaction: transaction,
     );
   }
 
-  Future<Example> updateRow(
+  Future<Test> updateRow(
     _i1.Session session,
-    Example row, {
-    _i1.ColumnSelections<ExampleTable>? columns,
+    Test row, {
+    _i1.ColumnSelections<TestTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<Example>(
+    return session.dbNext.updateRow<Test>(
       row,
-      columns: columns?.call(Example.t),
+      columns: columns?.call(Test.t),
       transaction: transaction,
     );
   }
 
   Future<List<int>> delete(
     _i1.Session session,
-    List<Example> rows, {
+    List<Test> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<Example>(
+    return session.dbNext.delete<Test>(
       rows,
       transaction: transaction,
     );
@@ -442,10 +491,10 @@ class ExampleRepository {
 
   Future<int> deleteRow(
     _i1.Session session,
-    Example row, {
+    Test row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<Example>(
+    return session.dbNext.deleteRow<Test>(
       row,
       transaction: transaction,
     );
@@ -453,23 +502,23 @@ class ExampleRepository {
 
   Future<List<int>> deleteWhere(
     _i1.Session session, {
-    required _i1.WhereExpressionBuilder<ExampleTable> where,
+    required _i1.WhereExpressionBuilder<TestTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<Example>(
-      where: where(Example.t),
+    return session.dbNext.deleteWhere<Test>(
+      where: where(Test.t),
       transaction: transaction,
     );
   }
 
   Future<int> count(
     _i1.Session session, {
-    _i1.WhereExpressionBuilder<ExampleTable>? where,
+    _i1.WhereExpressionBuilder<TestTable>? where,
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<Example>(
-      where: where?.call(Example.t),
+    return session.dbNext.count<Test>(
+      where: where?.call(Test.t),
       limit: limit,
       transaction: transaction,
     );
