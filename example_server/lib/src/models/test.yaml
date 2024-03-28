@@ -8,10 +8,10 @@
 
 
 # Name of the class to generate.
-class: Example
+class: Test
 
 # Add the table key, if this class represents a row in the database.
-table: example
+table: test
 
 # The fields (and columns if connected to the database) of the class. Supported types are 
 # `bool`, `int`, `double`, `String`, `UuidValue`, `Duration`, `DateTime`, `ByteData`, 
@@ -19,5 +19,7 @@ table: example
 # You can also add lists of objects and types have support for null safety. 
 # Eg. `List<int>?` or `List<MyOtherClass?>`.
 fields:
-  data: String
+  data1: String
+  data2: String
+  data3: String
   date: DateTime

@@ -41,21 +41,77 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   // These fields hold the last result or error message that we've received from
   // the server or null if no result exists yet.
-  String? _resultMessage;
+  String _resultMessage  = 'OK';
   String? _errorMessage;
+  int _rid = 0;
+  String _data1 = '';
+  String _data2 = '';
+  String _data3 = '';
 
   final _textEditingController = TextEditingController();
 
   // Calls the `hello` method of the `example` endpoint. Will set either the
   // `_resultMessage` or `_errorMessage` field, depending on if the call
   // is successful.
-  void _callHello() async {
+  void _callExample() async {
     try {
-      final result = await client.example.hello(_textEditingController.text);
+      final result = await client.example.createExample(Example(
+        data: _textEditingController.text,
+        date: DateTime.now(),
+      ));
+      final result2 = await client.test.createTest(Test(
+        data1: _textEditingController.text,
+        data2: _textEditingController.text,
+        data3: '1',
+        date: DateTime.now(),
+      ));
       setState(() {
         _errorMessage = null;
-        _resultMessage = result;
+        _resultMessage = 'OK';
       });
+    } catch (e) {
+      setState(() {
+        _errorMessage = '$e';
+      });
+    }
+  }
+
+  void _callTest_delete() async {
+    try {
+      final result2 = await client.test.deleteTest(_rid);
+      setState(() {
+        _errorMessage = null;
+        _resultMessage = 'OK';
+      });
+    } catch (e) {
+      setState(() {
+        _errorMessage = '$e';
+      });
+    }
+  }
+
+  void _callTest_get() async {
+    try {
+      final _test = await client.test.getTest(_rid);
+      print(_test);
+      if (_test != null) {
+        _data1 = _test.data1;
+        _data2 = _test.data2;
+        _data3 = _test.data3;
+        setState(() {
+          _errorMessage = null;
+          _resultMessage = 'OK';
+        });
+      }
+      else {
+        _data1 = '';
+        _data2 = '';
+        _data3 = '';
+        setState(() {
+          _errorMessage = null;
+          _resultMessage = 'Data not found';
+        });
+      }
     } catch (e) {
       setState(() {
         _errorMessage = '$e';
@@ -74,20 +130,59 @@ class MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 30.0),
               child: TextField(
                 controller: _textEditingController,
                 decoration: const InputDecoration(
-                  hintText: 'Enter your name',
+                  hintText: 'Enter your Example',
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
+              padding: const EdgeInsets.only(bottom: 30.0),
               child: ElevatedButton(
-                onPressed: _callHello,
+                onPressed: _callExample,
                 child: const Text('Send to Server'),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: TextField(
+                onChanged: (value) {
+                  _rid = int.parse(value);
+                  print(_rid);
+                },
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  hintText: 'Enter record id',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: ElevatedButton(
+                onPressed: _callTest_delete,
+                child: const Text('delete'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: ElevatedButton(
+                onPressed: _callTest_get,
+                child: const Text('get'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Text(_data1),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Text(_data2),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Text(_data3),
             ),
             _ResultDisplay(
               resultMessage: _resultMessage,
