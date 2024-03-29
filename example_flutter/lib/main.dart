@@ -41,7 +41,7 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   // These fields hold the last result or error message that we've received from
   // the server or null if no result exists yet.
-  String _resultMessage  = 'OK';
+  String _resultMessage = 'OK';
   String? _errorMessage;
   int _rid = 0;
   String _data1 = '';
@@ -55,11 +55,11 @@ class MyHomePageState extends State<MyHomePage> {
   // is successful.
   void _callExample() async {
     try {
-      final result = await client.example.createExample(Example(
+      await client.example.createExample(Example(
         data: _textEditingController.text,
         date: DateTime.now(),
       ));
-      final result2 = await client.test.createTest(Test(
+      await client.test.createTest(Test(
         data1: _textEditingController.text,
         data2: _textEditingController.text,
         data3: '1',
@@ -78,7 +78,7 @@ class MyHomePageState extends State<MyHomePage> {
 
   void _callTest_delete() async {
     try {
-      final result2 = await client.test.deleteTest(_rid);
+      await client.test.deleteTest(_rid);
       setState(() {
         _errorMessage = null;
         _resultMessage = 'OK';
@@ -92,18 +92,17 @@ class MyHomePageState extends State<MyHomePage> {
 
   void _callTest_get() async {
     try {
-      final _test = await client.test.getTest(_rid);
-      print(_test);
-      if (_test != null) {
-        _data1 = _test.data1;
-        _data2 = _test.data2;
-        _data3 = _test.data3;
+      final test = await client.test.getTest(_rid);
+      print(test);
+      if (test != null) {
+        _data1 = test.data1;
+        _data2 = test.data2;
+        _data3 = test.data3;
         setState(() {
           _errorMessage = null;
           _resultMessage = 'OK';
         });
-      }
-      else {
+      } else {
         _data1 = '';
         _data2 = '';
         _data3 = '';

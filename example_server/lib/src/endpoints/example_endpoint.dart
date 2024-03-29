@@ -17,8 +17,8 @@ class ExampleEndpoint extends Endpoint {
 
   /// Delete example from database
   Future<bool> deleteExample(Session session, int id) async {
-    final response =
-        await Example.delete(session, where: (example) => example.id.equals(id));
+    final response = await Example.delete(session,
+        where: (example) => example.id.equals(id));
     return response == 1;
   }
 
